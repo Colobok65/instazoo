@@ -1,4 +1,4 @@
-package ru.shur.instazoo.model.enums;
+package ru.shur.instazoo.entity.enums;
 
 public enum ERole {
     ROLE_USER,
