@@ -3,13 +3,17 @@ package ru.shur.instazoo.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.shur.instazoo.dto.UserDto;
 import ru.shur.instazoo.entity.User;
 import ru.shur.instazoo.entity.enums.ERole;
 import ru.shur.instazoo.exceptions.UserExistsException;
 import ru.shur.instazoo.payload.request.SignupRequest;
 import ru.shur.instazoo.repository.UserRepository;
+
+import java.security.Principal;
 
 @Service
 public class UserService {
@@ -41,5 +45,24 @@ public class UserService {
             LOG.error("Error during registration. {}", e.getMessage());
             throw new UserExistsException("The user " + user.getUsername() + " already exist. Please check credentials");
         }
+    }
+
+    public User updateUser(UserDto userDto, Principal principal) {
+        User user = getUserByPrincipal(principal);
+        user.setName(userDto.getFirstname());
+        user.setLastname(userDto.getLastname());
+        user.setBio(userDto.getBio());
+
+        return userRepository.save(user);
+    }
+
+    public User getCurrentUser(Principal principal) {
+        return getUserByPrincipal(principal);
+    }
+
+    private User getUserByPrincipal(Principal principal) {
+        String username = principal.getName();
+        return userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
     }
 }
