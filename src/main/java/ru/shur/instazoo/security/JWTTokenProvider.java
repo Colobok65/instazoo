@@ -13,13 +13,12 @@ import java.util.Map;
 
 @Component
 public class JWTTokenProvider {
-
     public static final Logger LOG = LoggerFactory.getLogger(JWTTokenProvider.class);
 
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
-        Date expireDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TIME);
+        Date expiryDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TIME);
 
         String userId = Long.toString(user.getId());
 
@@ -33,9 +32,10 @@ public class JWTTokenProvider {
                 .setSubject(userId)
                 .addClaims(claimsMap)
                 .setIssuedAt(now)
-                .setExpiration(expireDate)
+                .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
+
     }
 
     public boolean validateToken(String token) {
@@ -44,7 +44,7 @@ public class JWTTokenProvider {
                     .setSigningKey(SecurityConstants.SECRET)
                     .parseClaimsJws(token);
             return true;
-        } catch (SignatureException |
+        }catch (SignatureException |
                 MalformedJwtException |
                 ExpiredJwtException |
                 UnsupportedJwtException |
@@ -57,9 +57,11 @@ public class JWTTokenProvider {
     public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(SecurityConstants.SECRET)
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
         String id = (String) claims.get("id");
         return Long.parseLong(id);
     }
+
 }
+
