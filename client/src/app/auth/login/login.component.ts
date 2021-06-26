@@ -12,7 +12,7 @@ import {NotificationService} from '../../services/notification.service';
 })
 export class LoginComponent implements OnInit {
 
-  public loginForm?: FormGroup;
+  public loginForm!: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   createLoginForm(): FormGroup {
     return this.fb.group({
-      username: ['', Validators.compose([Validators.required])],
+      username: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required])],
     });
   }
