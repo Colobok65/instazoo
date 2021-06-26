@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
-import {TokenStorageService} from '../../services/token-storage.service';
 import {NotificationService} from '../../services/notification.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +15,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
-    private router: Router,
     private fb: FormBuilder) {
   }
 
@@ -39,12 +36,12 @@ export class RegisterComponent implements OnInit {
   submit(): void {
     console.log(this.registerForm?.value);
 
-    this.authService.login({
-      email: this.registerForm?.value.email,
-      username: this.registerForm?.value.username,
-      firstname: this.registerForm?.value.firstname,
-      lastname: this.registerForm?.value.lastname,
-      password: this.registerForm?.value.password,
+    this.authService.register({
+      email: this.registerForm.value.email,
+      username: this.registerForm.value.username,
+      firstname: this.registerForm.value.firstname,
+      lastname: this.registerForm.value.lastname,
+      password: this.registerForm.value.password,
       confirmPassword: this.registerForm?.value.confirmPassword
     }).subscribe(data => {
       console.log(data);
