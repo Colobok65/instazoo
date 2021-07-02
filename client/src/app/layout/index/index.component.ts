@@ -16,7 +16,7 @@ import {ImageUploadService} from '../../services/image-upload.service';
 export class IndexComponent implements OnInit {
 
   isPostsLoaded = false;
-  posts!: Post[];
+  posts: Post[] = [];
   isUserDataLoaded = false;
   user!: User;
 
@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit {
     posts.forEach(p => {
       this.imageService.getImageToPost(p.id)
         .subscribe(data => {
-          p.image = data.imageBytes;
+          p.image = data.imageBytes; /* entity - ImageModel.imageBytes */
         });
     });
   }
@@ -101,5 +101,4 @@ export class IndexComponent implements OnInit {
     }
     return 'data:image/jpeg;base64,' + img;
   }
-
 }
