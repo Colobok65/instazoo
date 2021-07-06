@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
     };
   }
 
-  openEditDialog(): void {
+   openEditDialog(): void {
     const dialogUserEditConfig = new MatDialogConfig();
     dialogUserEditConfig.width = '400px';
     dialogUserEditConfig.data = {

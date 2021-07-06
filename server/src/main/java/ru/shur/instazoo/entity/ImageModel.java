@@ -26,4 +26,7 @@ public class ImageModel {
 
     @JsonIgnore
     private Long postId;
+
+    public ImageModel() {
+    }
 }
