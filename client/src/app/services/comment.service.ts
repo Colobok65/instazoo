@@ -17,7 +17,7 @@ export class CommentService {
     });
   }
 
-  getCommentsToPost(postId: number): Observable<any> {
+  getCommentsToPost(postId: number | undefined): Observable<any> {
     return this.http.get(COMMENT_API + postId + '/all');
   }
 

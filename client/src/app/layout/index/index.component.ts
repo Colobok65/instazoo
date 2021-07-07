@@ -64,7 +64,7 @@ export class IndexComponent implements OnInit {
   }
 
   likePost(postId: number, postIndex: number): void {
-    const  post = this.posts[postIndex];
+    const post = this.posts[postIndex];
     console.log(post);
 
     if (!post.usersLiked.includes(this.user.username)) {
@@ -78,7 +78,7 @@ export class IndexComponent implements OnInit {
         .subscribe(() => {
           const index = post.usersLiked.indexOf(this.user.username, 0);
           if (index > -1) {
-            post.usersLiked?.splice(index, 1);
+            post.usersLiked.splice(index, 1);
           }
         });
     }
