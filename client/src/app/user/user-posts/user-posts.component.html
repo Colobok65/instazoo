@@ -20,7 +20,7 @@
 
     <div style="text-align: left">
       <p *ngFor="let comment of post.comments; let c = index"><span style="font-weight: 500">{{comment.username}}</span>: {{comment.message}}
-        <button color="accent" mat-button (click)="deleteComment(comment.id, i, c)">
+        <button color="accent" mat-button (click)="deleteComment(comment.id || 0, i, c)">
           <mat-icon color="accent">clear</mat-icon>
         </button>
       </p>
@@ -33,7 +33,7 @@
       </button>
     </mat-card-actions>
 
-    <mat-card-subtitle align="start">Likes: {{post.likes}} <span *ngIf="post.likes > 0">by {{post.usersLiked}}</span></mat-card-subtitle>
+    <mat-card-subtitle align="start">Likes: {{post.likes}} <span *ngIf="post.likes">by {{post.usersLiked}}</span></mat-card-subtitle>
   </mat-card>
 </div>
 

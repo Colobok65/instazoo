@@ -13,7 +13,7 @@ export class CommentService {
 
   addToCommentToPost(postId: number, message: string): Observable<any> {
     return this.http.post(COMMENT_API + postId + '/create', {
-      message: message
+      message
     });
   }
 

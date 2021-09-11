@@ -12,7 +12,7 @@
     </mat-card-content>
 
     <mat-card-actions align="start">
-      <button *ngIf="isUserDataLoaded" mat-button (click)="likePost(post.id, i)" [ngClass]="post.usersLiked.indexOf(user.username) !== -1 ? 'is-liked' : 'not-liked'">
+      <button *ngIf="isUserDataLoaded" mat-button (click)="likePost(post.id || 0, i)" [ngClass]="post.usersLiked.indexOf(user.username) !== -1 ? 'is-liked' : 'not-liked'">
         <mat-icon>favorite</mat-icon> Like</button>
     </mat-card-actions>
 
@@ -22,7 +22,7 @@
 
     <mat-form-field class="w-100">
       <mat-label>Leave a comment...</mat-label>
-      <input  (keyup.enter)="postComment($event.target.value, post.id, i)" matInput #message maxlength="128">
+      <input  (keyup.enter)="postComment($event.target.value, post.id || 0, i)" matInput #message maxlength="128">
       <mat-hint align="end">{{message.value.length}} / 128</mat-hint>
     </mat-form-field>
 

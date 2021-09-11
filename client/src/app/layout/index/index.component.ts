@@ -18,7 +18,7 @@ export class IndexComponent implements OnInit {
   isPostsLoaded = false;
   posts: Post[] = [];
   isUserDataLoaded = false;
-  user!: User;
+  user: User = {id: 0, bio: '', lastname: '', firstname: '', username: '', email: ''};
 
   constructor(private postService: PostService,
               private userService: UserService,
